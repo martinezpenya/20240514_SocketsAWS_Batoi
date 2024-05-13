@@ -40,7 +40,7 @@ section {
 ![h:300 center](assets/cover_nobg.png)
 # **WebSockets de Java en la nube (AWS)**
 #### II Jornades d'intercanvi d'experiències en FPCloud
-###### version: 2023-08-05
+###### version: 2024-05-13
 ___
 <!-- footer: d.martinezpena@edu.gva.es -->
 <!-- header: WebSockets de Java en la nube (AWS) - II Jornades d'intercanvi d'experiències en FPCloud-->
