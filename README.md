@@ -12,8 +12,8 @@ Contingut del repositori:
   - [Aspecte 16:9](slides_16_9.md)
   - [Aspecte 4:3](slides_4_3.md)
 - Diapositives en HTML
-  - [Aspecte 16:9](slides_16_9.html)
-  - [Aspecte 4:3](slides_4_3.html)
+  - [Aspecte 16:9](https://rawcdn.githack.com/martinezpenya/20240514_SocketsAWS_Batoi/master/slides_16_9.html)
+  - [Aspecte 4:3](https://rawcdn.githack.com/martinezpenya/20240514_SocketsAWS_Batoi/master/slides_4_3.html)
 
 ## Llicència
 

@@ -152,7 +152,7 @@ Necesitamos saber la DNS de IPv4 pública de nuestra instancia EC2 para acceder 
 
 ## Preparar el cliente local
 
-En nuestro IDE preferido creamos un nuevo archivo `ClienteSocket.java` con el siguiente código:
+En nuestro IDE preferido creamos un nuevo archivo `AWSClienteSocket.java` con el siguiente código:
 
 ```java
 import java.io.*;
