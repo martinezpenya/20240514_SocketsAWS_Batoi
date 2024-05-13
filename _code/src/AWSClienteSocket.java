@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class AWSClienteSocket {
 
-    private final static int PUERTO = 6000;
-    private static final String DNSAWS = "ec2-18-208-159-192.compute-1.amazonaws.com";
+    private final static int PUERTO = 11000;
+    private static final String DNSAWS = "ec2-54-173-21-231.compute-1.amazonaws.com";
     //private static final String DNSAWS = "127.0.0.1";
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {

@@ -1,9 +1,9 @@
 ---
 title: WebSockets de Java en la nube (AWS)
-subtitle: Jornades Batoi
+subtitle: II Jornades d'intercanvi d'experiències en FPCloud
 language: ES
 author: David Martínez Peña [www.martinezpenya.es]
-subject: Programación
+subject: FPCloud
 keywords: [PRG, 2024, Programacion, Java]
 IES: IES Eduardo Primo Marqués (Carlet) [www.ieseduardoprimo.es]
 header: ${title} - ${subject} (ver. ${today}) 
@@ -60,7 +60,7 @@ A continuación seleccionamos `Create environment`:
 
 ![Crear el entorno](/assets/LAB05.png)
 
-En la siguiente ventana debemos especificar el **nombre** (`Name`), cambiaremos la **plataforma** a `Ubuntu Server 18.04 LTS`, también podemos ampliar el tiempo de Timeout para no tener problemas a `4 horas` i por último dentro de los **Network settings** elegiremos la conexión por `SSH`, el resto de opciones se quedan por defecto y pulsamos el botón naranja del final `Create`.
+En la siguiente ventana debemos especificar el **nombre** (`Name`), cambiaremos la **plataforma** a `Ubuntu Server 22.04 LTS`, también podemos ampliar el tiempo de Timeout para no tener problemas a `4 horas` i por último dentro de los **Network settings** elegiremos la conexión por `SSH`, el resto de opciones se quedan por defecto y pulsamos el botón naranja del final `Create`.
 
 ![Propiedades del cloud9](/assets/LAB06.png)
 
@@ -74,13 +74,13 @@ Y deberíamos ver algo parecido a esto:
 
 ### Creación del servidor de Sockets
 
-Primero cerraremos la ventana de bienvenida, a continuación creamos un nuevo fichero, por ejemplo `ServidorSocket.java` con el siguiente código java:
+Primero cerraremos la ventana de bienvenida, a continuación creamos un nuevo fichero, por ejemplo `AWSServerSocket.java` con el siguiente código java:
 
 ```java
 import java.io.*;
 import java.net.*;
 
-public class ServidorSocket {
+public class AWSServerSocket {
     
     private static final int PORT=11000;
 
@@ -156,32 +156,31 @@ En nuestro IDE preferido creamos un nuevo archivo `ClienteSocket.java` con el si
 
 ```java
 import java.io.*;
-import java.net.*;
+import java.net.Socket;
 import java.util.Scanner;
 
-public class ClienteSocket {
+public class AWSClienteSocket {
 
-    private static final String DNSAWS = "ec2-3-84-52-97.compute-1.amazonaws.com";
-    
+    private final static int PUERTO = 11000;
+    private static final String DNSAWS = "ec2-54-173-21-231.compute-1.amazonaws.com";
+    //private static final String DNSAWS = "127.0.0.1";
+
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        Socket socket;
-        ObjectInputStream entrada;
-        ObjectOutputStream eixida;
-        String frase;
-
-        socket = new Socket(DNSAWS, 11000);
-        eixida = new ObjectOutputStream(socket.getOutputStream());
-
-        System.out.println("Introduce la frase a enviar en minúsculas");
         Scanner in = new Scanner(System.in);
-        frase = in.nextLine();
-        System.out.println("Se envia la frase " + frase);
-        eixida.writeObject(frase);
+        System.out.print("Introduce la frase a enviar en minúsculas: ");
+        String frase = in.nextLine();
 
-        entrada = new ObjectInputStream(socket.getInputStream());
-        System.out.println(
-                "La frase recibida es: " + (String) entrada.readObject());
-        socket.close();
+        try (Socket socket = new Socket(DNSAWS, PUERTO)) {
+            ObjectOutputStream salida = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            System.out.println("Se envia la frase: " + frase);
+            salida.writeObject(frase);
+            salida.flush(); //vaciamos el buffer
+
+            ObjectInputStream entrada = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+            System.out.println("La frase recibida es: " + (String) entrada.readObject());
+        } catch (IOException ex) {
+            System.err.println("Error. De entrada salida.");
+        }
     }
 }
 ```
